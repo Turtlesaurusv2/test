@@ -20,29 +20,33 @@ catch(PDOException $e)
 $data = json_decode( $_POST["json"], true );
 $response = [];
 
-print_r($data);
-exit;
 
-$CustomerID = $_POST['CustomerID'];
-$Username = $_POST['Username'];
-$Password = $_POST['Password'];
-$Name = $_POST['Name'];
-$Tel = $_POST['Tel'];
-$Country = $_POST['Country'];
+
+$CustomerID = $data['CustomerID'];
+$Username = $data['Username'];
+$Password = $data['Password'];
+$Name = $data['Name'];
+$Tel = $data['Tel'];
+$Country = $data['Country'];
 
 if  (empty($CustomerID)) {
+    $response["success"] = 0;
+    $response["message"] = "กรุณากรอก CustomerID";
 
-    $response["message"] = "กรุณากรอกCustomerID";
-	$response["success"] = 1;
-
-
-}
-else
-{
+}else if(empty($Username)){
+    $response["message"] = "กรุณากรอก Username ";
+    $response["success"] = 0;
+}else if(empty($Password)){
+    $response["message"] = "กรุณากรอก Password";
+    $response["success"] = 0;
+}else if(empty($Name)){
+    $response["message"] = "กรุณากรอก Name ";
+    $response["success"] = 0;
+}else {
     $stmt = $conn->prepare("INSERT INTO register SET CustomerID = :CustomerID, Username = :Username, Password = :Password, Name = :Name, Tel = :Tel, Country = :Country"); 
 	$stmt->execute([":CustomerID" => $CustomerID, ":Username" => $Username, ":Password" => $Password, ":Name" => $Name, ":Tel" => $Tel, ":Country" => $Country ]); 
-    $response["message"] = "`gliH0lbho";
-	$response["success"] = 0;
+    $response["message"] = "บันทึกข้อมูลเสร็จสิ้น";
+	$response["success"] = 1;
 
 }
 

@@ -12,7 +12,7 @@
 
 
  
-<form action="test1-check.php" name="frmMain" id="frmMain" method="post">
+<div  name="frmMain" id="frmMain" method="post">
 <table width="284" border="1">
   <tr>
     <th width="120">CustomerID:</th>
@@ -40,10 +40,10 @@
     </tr>
     <th width="120"></th>
 
-<td><input type="submit" name="send" id="send" value="send"> 
-<input type="reset" value="reset"></td>
+<td><input onclick="send();"  type="submit" name="send" id="send" value="send"> 
+<button ><a href="test1.php">reset</a></button></td>
 </tr>
-</table>
+</div>
 
 
 </form>
@@ -84,15 +84,15 @@
                 type: "POST",
                 data: {"json":json},
                 dataType: "json",
-                success: function(res) 
+                success: function(response) 
                 {
-                    if(res.success == 1)
+                    if(response.success == 1)
                     {
-                        alert(res.message);
+                        alert(response.message);
                     }
                     else
                     {
-                        alert(res.message);
+                        alert(response.message);
 
                     }
 
